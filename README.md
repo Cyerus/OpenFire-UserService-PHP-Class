@@ -1,0 +1,2 @@
+OpenFire-UserService-PHP-Class
+==============================
