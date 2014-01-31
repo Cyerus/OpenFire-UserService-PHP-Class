@@ -328,11 +328,11 @@ class OpenFireUserService
      */
     private function addParameter(&$parameters, $paramName, $paramValue)
     {
-		$parameters = array_merge($parameters, array(
-			$paramName => $paramValue
-		));
+        $parameters = array_merge($parameters, array(
+            $paramName => $paramValue
+        ));
     }
-	
+
     /**
      * Add a possible string parameter
      *
@@ -343,11 +343,11 @@ class OpenFireUserService
      */
     private function addString(&$parameters, $paramName, $paramValue)
     {
-		if(!empty($paramValue) && is_string($paramValue)) {
-			$this->addParameter($parameters, $paramName, $paramValue);
-		}
+        if(!empty($paramValue) && is_string($paramValue)) {
+            $this->addParameter($parameters, $paramName, $paramValue);
+        }
     }
-	
+
     /**
      * Add a possible email parameter
      *
@@ -357,9 +357,9 @@ class OpenFireUserService
      */
     private function addEmail(&$parameters, $paramValue)
     {
-		if(filter_var($paramValue, FILTER_VALIDATE_EMAIL) !== false) {
-			$this->addParameter($parameters, 'email', $paramValue);
-		}
+        if(filter_var($paramValue, FILTER_VALIDATE_EMAIL) !== false) {
+            $this->addParameter($parameters, 'email', $paramValue);
+        }
     }
 
     /**
@@ -371,11 +371,11 @@ class OpenFireUserService
      */
     private function addSubscription(&$parameters, $paramValue)
     {
-		if($paramValue !== false && in_array($paramValue, $this->subscriptions)) {
-			$this->addParameter($parameters, 'subscription', $paramValue);
-		}
+        if($paramValue !== false && in_array($paramValue, $this->subscriptions)) {
+            $this->addParameter($parameters, 'subscription', $paramValue);
+        }
     }
-	
+
     /**
      * Add a possible groups parameter
      *
@@ -385,11 +385,11 @@ class OpenFireUserService
      */
     private function addGroups(&$parameters, $paramValue)
     {
-		if(is_array($paramValue) && !empty($paramValue)) {
-			$this->addParameter($parameters, 'groups', implode(',', $paramValue));
-		}
+        if(is_array($paramValue) && !empty($paramValue)) {
+            $this->addParameter($parameters, 'groups', implode(',', $paramValue));
+        }
     }
-	
+
     /**
      * Simple construct (unused)
      */
