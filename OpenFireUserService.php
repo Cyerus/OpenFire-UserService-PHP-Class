@@ -68,7 +68,12 @@ class OpenFireUserService
             $result = $this->doRequestFopen($url, $parameters);
         }
 
-        return $this->analyzeResult($result);
+		if($result === false) {
+			return false;
+		} else {
+			return $this->analyzeResult($result);
+		}
+		
     }
 
     /**
@@ -103,19 +108,23 @@ class OpenFireUserService
      */
     private function doRequestCurl($url, $parameters)
     {
-        $ch = curl_init();
+        try {
+			$ch = curl_init();
 
-        curl_setopt_array($ch, array(
-            CURLOPT_URL				=> $url . $this->plugin,
-            CURLOPT_PORT			=> $this->port,
-            CURLOPT_POST			=> true,
-            CURLOPT_POSTFIELDS		=> http_build_query($parameters),
-            CURLOPT_RETURNTRANSFER	=> true
-        ));
+			curl_setopt_array($ch, array(
+				CURLOPT_URL				=> $url . $this->plugin,
+				CURLOPT_PORT			=> $this->port,
+				CURLOPT_POST			=> true,
+				CURLOPT_POSTFIELDS		=> http_build_query($parameters),
+				CURLOPT_RETURNTRANSFER	=> true
+			));
 
-        $result = curl_exec ($ch);
-
-        curl_close ($ch);
+			$result = curl_exec ($ch);
+			curl_close ($ch);	
+			
+		} catch (Exception $ex) {
+			$result = false;
+		}
 
         return $result;
     }
@@ -129,11 +138,15 @@ class OpenFireUserService
      */
     private function doRequestFopen($url, $parameters)
     {
-        $fopen = fopen($url . ":" . $this->port . $this->plugin . "?" . http_build_query($parameters), 'r');
-
-        $result = fread($fopen, 1024);
-
-        fclose($fopen);
+        try {
+			$fopen = fopen($url . ":" . $this->port . $this->plugin . "?" . http_build_query($parameters), 'r');
+			
+			$result = fread($fopen, 1024);
+			fclose($fopen);
+			
+		} catch (Exception $ex) {
+			$result = false;
+		}
 
         return $result;
     }
