@@ -186,7 +186,7 @@ class OpenFireUserService
 	 * @param	string		$password	Password	(Optional)
 	 * @param	string		$name		Name		(Optional)
 	 * @param	string		$email		Email		(Optional)
-	 * @param	string[]	$groups		Groups		(Optional)
+	 * @param	array		$groups		Groups		(Optional)
 	 * @return	array 
 	 */
 	public function updateUser($username, $password = false, $name = false, $email = false, $groups = false)
@@ -349,6 +349,7 @@ class OpenFireUserService
 	 * 
 	 * @param	string	$name	Name
 	 * @param	mixed	$value
+	 * @return	void
 	 */
 	public function __set($name, $value)
 	{
