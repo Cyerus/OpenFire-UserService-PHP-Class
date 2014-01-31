@@ -1,13 +1,43 @@
 <?php
 
+/*
+MIT License
+Copyright (c) 2013 - 2014 Cyerus, Jordy Wille
+
+Permission is hereby granted, free of charge, to any person
+obtaining a copy of this software and associated documentation
+files (the "Software"), to deal in the Software without
+restriction, including without limitation the rights to use,
+copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the
+Software is furnished to do so, subject to the following
+conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+OTHER DEALINGS IN THE SOFTWARE.
+*/
+
+
 /**
- * Description of OpenFireUserService
+ * A simple PHP class for use with the OpenFire UserService plugin.
  *
  * @author Cyerus
  */
-class OpenFireUserService 
+class OpenFireUserService
 {
-	
+	/*
+	 * Stores all the default values.
+	 * @var string
+	 */
 	private $_settings = array(
 		'host'			=> 'localhost',
 		'port'			=> '9090',
@@ -20,6 +50,13 @@ class OpenFireUserService
 		'subscriptions'	=> array(-1, 0, 1, 2)
 	);
 	
+	
+	/*
+	 * Sends the actual POST request to OpenFire's UserService
+	 * 
+	 * @param string|array $parameters
+	 * @return array
+	 */
 	private function doRequest($parameters = array())
 	{
 		$base = ($this->useSSL) ? "https" : "http";
@@ -51,6 +88,16 @@ class OpenFireUserService
 		return $result;
 	}
 	
+	/*
+	 * Creates a new OpenFire user
+	 * 
+	 * @param string $username
+	 * @param string $password
+	 * @param string $name Optional
+	 * @param string $email Optional
+	 * @param array $groups Optional
+	 * @return array 
+	 */
 	public function add($username, $password, $name = false, $email = false, $groups = false)
 	{
 		$parameters = array(
@@ -87,6 +134,12 @@ class OpenFireUserService
 		return $this->doRequest($parameters);
 	}
 	
+	/*
+	 * Deletes an OpenFire user
+	 * 
+	 * @param string $username
+	 * @return array
+	 */
 	public function delete($username)
 	{
 		return $this->doRequest(array(
@@ -96,6 +149,12 @@ class OpenFireUserService
 		));
 	}
 	
+	/*
+	 * Disables an OpenFire user
+	 * 
+	 * @param string $username
+	 * @return array
+	 */
 	public function disable($username)
 	{
 		return $this->doRequest(array(
@@ -105,6 +164,12 @@ class OpenFireUserService
 		));
 	}
 	
+	/*
+	 * Enables an OpenFire user
+	 * 
+	 * @param string $username
+	 * @return array
+	 */
 	public function enable($username)
 	{
 		return $this->doRequest(array(
@@ -114,6 +179,16 @@ class OpenFireUserService
 		));
 	}
 	
+	/*
+	 * Updates an OpenFire user
+	 * 
+	 * @param string $username
+	 * @param string $password Optional
+	 * @param string $name Optional
+	 * @param string $email Optional
+	 * @param array $groups Optional
+	 * @return array 
+	 */
 	public function update($username, $password = false, $name = false, $email = false, $groups = false)
 	{
 		$parameters = array(
@@ -157,6 +232,15 @@ class OpenFireUserService
 		return $this->doRequest($parameters);
 	}
 
+	/*
+	 * Adds to this OpenFire user's roster
+	 * 
+	 * @param string $username
+	 * @param string $item_jid
+	 * @param string $name Optional
+	 * @param int $subscription Optional
+	 * @return array 
+	 */
 	public function add_roster($username, $item_jid, $name = false, $subscription = false)
 	{
 		$parameters = array(
@@ -185,6 +269,15 @@ class OpenFireUserService
 		return $this->doRequest($parameters);
 	}
 	
+	/*
+	 * Updates this OpenFire user's roster
+	 * 
+	 * @param string $username
+	 * @param string $item_jid
+	 * @param string $name Optional
+	 * @param int $subscription Optional
+	 * @return array 
+	 */
 	public function update_roster($username, $item_jid, $name = false, $subscription = false)
 	{
 		$parameters = array(
@@ -213,6 +306,13 @@ class OpenFireUserService
 		return $this->doRequest($parameters);
 	}
 	
+	/*
+	 * Removes from this OpenFire user's roster
+	 * 
+	 * @param string $username
+	 * @param string $item_jid
+	 * @return array 
+	 */
 	public function delete_roster($username, $item_jid)
 	{
 		return $this->doRequest(array(
@@ -223,9 +323,17 @@ class OpenFireUserService
 		));
 	}
 	
-	
+	/*
+	 * Simple construct (unused)
+	 */
 	public function __construct() {	}
 	
+	/*
+	 * Stores a configuration parameter
+	 * 
+	 * @param string $name
+	 * @return mixed
+	 */
 	public function __get($name)
 	{
 		if (array_key_exists($name, $this->_settings))
@@ -236,6 +344,12 @@ class OpenFireUserService
 		return null;
 	}
 	
+	/*
+	 * Grabs a configuration parameter
+	 * 
+	 * @param string $name
+	 * @param mixed $value
+	 */
 	public function __set($name, $value)
 	{
 		$this->_settings[$name] = $value;
