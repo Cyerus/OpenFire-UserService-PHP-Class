@@ -104,7 +104,7 @@ class OpenFireUserService
      *
      * @param	string		$url			URL
      * @param	string[]	$parameters		Parameters
-     * @return	string						Callback data from cURL request
+     * @return	string|false				Callback data from cURL request
      */
     private function doRequestCurl($url, $parameters)
     {
@@ -134,7 +134,7 @@ class OpenFireUserService
      *
      * @param	string		$url			URL
      * @param	string[]	$parameters		Parameters
-     * @return	string						Callback data from FOpen request
+     * @return	string|false				Callback data from FOpen request
      */
     private function doRequestFopen($url, $parameters)
     {
