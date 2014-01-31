@@ -332,7 +332,7 @@ class OpenFireUserService
 	 * @param	string	$email	Email
 	 * @return	bool
 	 */
-	private function validateEmail($email)
+	private function isEmail($email)
 	{
 		if(filter_var($email, FILTER_VALIDATE_EMAIL) !== false)
 		{
@@ -348,7 +348,7 @@ class OpenFireUserService
 	 * @param	string	$string	String
 	 * @return	bool
 	 */
-	private function validateString($string)
+	private function isString($string)
 	{
 		if(!empty($string) && is_string($string))
 		{
@@ -364,7 +364,7 @@ class OpenFireUserService
 	 * @param	int|false	$value	Value
 	 * @return	bool
 	 */
-	private function validateSubscription($subscription)
+	private function isSubscription($subscription)
 	{
 		if($subscription !== false && in_array($subscription, $this->subscriptions))
 		{
@@ -380,7 +380,7 @@ class OpenFireUserService
 	 * @param	int[]	$value	Value
 	 * @return	bool
 	 */
-	private function validateGroups($groups)
+	private function isGroups($groups)
 	{
 		if(is_array($groups) && !empty($groups))
 		{
@@ -393,23 +393,23 @@ class OpenFireUserService
 	/**
 	 * Add a possible parameter
 	 * 
-	 * @param	string[]			$parameters		Parameters
-	 * @param	string				$paramName		Parameter name
-	 * @param	string|int|bool		$paramValue		Parameter value
-	 * @param	int					$paramType		Parameter type
+	 * @param	string[]					$parameters		Parameters
+	 * @param	string						$paramName		Parameter name
+	 * @param	string|int|bool|string[]	$paramValue		Parameter value
+	 * @param	int							$paramType		Parameter type
 	 * @return	void
 	 */
 	private function addParameter(&$parameters, $paramName, $paramValue, $paramType = 0)
 	{
-		if	(($paramType == 0 && validateString($paramValue) && !empty($paramValue)) ||
-			( $paramType == 1 && validateEmail($paramValue) && !empty($paramValue)) ||
-			( $paramType == 2 && validateSubscription($paramValue)))
+		if	(($paramType == 0 && isString($paramValue) && !empty($paramValue)) ||
+			( $paramType == 1 && isEmail($paramValue) && !empty($paramValue)) ||
+			( $paramType == 2 && isSubscription($paramValue)))
 		{
 			$parameters = array_merge($parameters, array(
 				$paramName => $paramValue
 			));
 		}
-		elseif($paramType == 3 && validateGroups($paramValue))
+		elseif($paramType == 3 && isGroups($paramValue))
 		{
 			$parameters = array_merge($parameters, array(
 				$paramName => implode(',', $paramValue)
