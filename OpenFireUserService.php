@@ -55,7 +55,7 @@ class OpenFireUserService
 	 * Forward the POST request and analyze the result
 	 * 
 	 * @param	string[]	$parameters		Parameters
-	 * @return	false|string[]
+	 * @return	string[]|false
 	 */
 	private function doRequest($parameters = array())
 	{
@@ -78,7 +78,7 @@ class OpenFireUserService
 	 * Analyze the result for errors, and reorder the result
 	 * 
 	 * @param	string	$result
-	 * @return	false|string[]
+	 * @return	string[]|false
 	 */
 	private function analyzeResult($result)
 	{
@@ -154,7 +154,7 @@ class OpenFireUserService
 	 * @param	string|false	$name		Name	(Optional)
 	 * @param	string|false	$email		Email	(Optional)
 	 * @param	string[]|false	$groups		Groups	(Optional)
-	 * @return	false|string[]
+	 * @return	string[]|false
 	 */
 	public function addUser($username, $password, $name = false, $email = false, $groups = false)
 	{
@@ -181,7 +181,7 @@ class OpenFireUserService
 	 * Deletes an OpenFire user
 	 * 
 	 * @param	string		$username	Username
-	 * @return	false|string[]
+	 * @return	string[]|false
 	 */
 	public function deleteUser($username)
 	{
@@ -196,7 +196,7 @@ class OpenFireUserService
 	 * Disables an OpenFire user
 	 * 
 	 * @param	string		$username	Username
-	 * @return	false|string[]
+	 * @return	string[]|false
 	 */
 	public function disableUser($username)
 	{
@@ -230,7 +230,7 @@ class OpenFireUserService
 	 * @param	string|false	$name		Name (Optional)
 	 * @param	string|false	$email		Email (Optional)
 	 * @param	string[]|false	$groups		Groups (Optional)
-	 * @return	false|string[]
+	 * @return	string[]|false
 	 */
 	public function updateUser($username, $password = false, $name = false, $email = false, $groups = false)
 	{
@@ -262,7 +262,7 @@ class OpenFireUserService
 	 * @param	string			$itemJid		Item JID
 	 * @param	string|false	$name			Name		 (Optional)
 	 * @param	int|false		$subscription	Subscription (Optional)
-	 * @return	false|string[]
+	 * @return	string[]|false
 	 */
 	public function addToRoster($username, $itemJid, $name = false, $subscription = false)
 	{
@@ -289,7 +289,7 @@ class OpenFireUserService
 	 * @param	string			$itemJid		Item JID
 	 * @param	string|false	$name			Name		 (Optional)
 	 * @param	int|false		$subscription	Subscription (Optional)
-	 * @return	false|string[]
+	 * @return	string[]|false
 	 */
 	public function updateRoster($username, $itemJid, $name = false, $subscription = false)
 	{
@@ -314,7 +314,7 @@ class OpenFireUserService
 	 * 
 	 * @param	string	$username	Username
 	 * @param	string	$itemJid	Item JID
-	 * @return	false|string[]
+	 * @return	string[]|false
 	 */
 	public function deleteFromRoster($username, $itemJid)
 	{
@@ -361,7 +361,7 @@ class OpenFireUserService
 	/**
 	 * Validates a subscription
 	 * 
-	 * @param	int|false	$value	Value
+	 * @param	int|false	$subscription	Subscription
 	 * @return	bool
 	 */
 	private function isSubscription($subscription)
@@ -377,7 +377,7 @@ class OpenFireUserService
 	/**
 	 * Validates groups
 	 * 
-	 * @param	int[]	$value	Value
+	 * @param	int[]	$groups		Groups
 	 * @return	bool
 	 */
 	private function isGroups($groups)
