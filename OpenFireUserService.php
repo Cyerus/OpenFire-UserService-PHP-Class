@@ -369,7 +369,7 @@ class OpenFireUserService
 	 * 
 	 * @param	string	$username	Username
 	 * @param	string	$itemJid	Item JID
-	 * @return	string[]|false
+	 * @return	false|string[]
 	 */
 	public function deleteFromRoster($username, $itemJid)
 	{
@@ -390,7 +390,7 @@ class OpenFireUserService
 	 * Stores a configuration parameter
 	 * 
 	 * @param	string	$name	Name
-	 * @return	mixed|null
+	 * @return	string|array|bool|int|null
 	 */
 	public function __get($name)
 	{
@@ -405,8 +405,8 @@ class OpenFireUserService
 	/**
 	 * Grabs a configuration parameter
 	 * 
-	 * @param	string				$name	Name
-	 * @param	string|array|bool	$value	Value
+	 * @param	string					$name	Name
+	 * @param	string|array|bool|int	$value	Value
 	 * @return	void
 	 */
 	public function __set($name, $value)
