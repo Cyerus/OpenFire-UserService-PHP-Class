@@ -34,7 +34,7 @@ OTHER DEALINGS IN THE SOFTWARE.
  */
 class OpenFireUserService
 {
-	/*
+	/**
 	 * Stores all the default values.
 	 * @var string
 	 */
@@ -51,7 +51,7 @@ class OpenFireUserService
 	);
 	
 	
-	/*
+	/**
 	 * Forward the POST request and analyze the result
 	 * 
 	 * @param	string[]	$parameters		Parameters
@@ -74,7 +74,7 @@ class OpenFireUserService
 		return $this->analyzeResult($result);
 	}
 	
-	/*
+	/**
 	 * Analyze the result for errors, and reorder the result
 	 * 
 	 * @param	string[]	$result
@@ -87,7 +87,7 @@ class OpenFireUserService
 		return $result;
 	}
 	
-	/*
+	/**
 	 * Sends the actual POST request to OpenFire's UserService using cURL
 	 * 
 	 * @param	string		$url			URL
@@ -113,7 +113,7 @@ class OpenFireUserService
 		return $result;
 	}
 	
-	/*
+	/**
 	 * Sends the actual POST request to OpenFire's UserService using cURL
 	 * 
 	 * @param	string		$url			URL
@@ -131,7 +131,7 @@ class OpenFireUserService
 		return $result;
 	}
 	
-	/*
+	/**
 	 * Creates a new OpenFire user
 	 * 
 	 * @param	string		$username	Username
@@ -177,7 +177,7 @@ class OpenFireUserService
 		return $this->doRequest($parameters);
 	}
 	
-	/*
+	/**
 	 * Deletes an OpenFire user
 	 * 
 	 * @param	string		$username	Username
@@ -192,7 +192,7 @@ class OpenFireUserService
 		));
 	}
 	
-	/*
+	/**
 	 * Disables an OpenFire user
 	 * 
 	 * @param	string		$username	Username
@@ -207,7 +207,7 @@ class OpenFireUserService
 		));
 	}
 	
-	/*
+	/**
 	 * Enables an OpenFire user
 	 * 
 	 * @param	string		$username	Username
@@ -222,7 +222,7 @@ class OpenFireUserService
 		));
 	}
 	
-	/*
+	/**
 	 * Updates an OpenFire user
 	 * 
 	 * @param string $username Username
@@ -275,7 +275,7 @@ class OpenFireUserService
 		return $this->doRequest($parameters);
 	}
 
-	/*
+	/**
 	 * Adds to this OpenFire user's roster
 	 * 
 	 * @param	string		$username		Username
@@ -312,7 +312,7 @@ class OpenFireUserService
 		return $this->doRequest($parameters);
 	}
 	
-	/*
+	/**
 	 * Updates this OpenFire user's roster
 	 * 
 	 * @param	string	$username		Username
@@ -349,12 +349,12 @@ class OpenFireUserService
 		return $this->doRequest($parameters);
 	}
 	
-	/*
+	/**
 	 * Removes from this OpenFire user's roster
 	 * 
-	 * @param	string	$username		Username
-	 * @param	string	$itemJid		Item JID
-	 * @return	array 
+	 * @param string $username Username
+	 * @param string $itemJid Item JID
+	 * @return array 
 	 */
 	public function deleteFromRoster($username, $itemJid)
 	{
@@ -366,16 +366,16 @@ class OpenFireUserService
 		));
 	}
 	
-	/*
+	/**
 	 * Simple construct (unused)
 	 */
 	public function __construct() {	}
 	
-	/*
+	/**
 	 * Stores a configuration parameter
 	 * 
-	 * @param	string	$name	Name
-	 * @return	mixed
+	 * @param string $name Name
+	 * @return mixed
 	 */
 	public function __get($name)
 	{
@@ -387,12 +387,12 @@ class OpenFireUserService
 		return null;
 	}
 	
-	/*
+	/**
 	 * Grabs a configuration parameter
 	 * 
-	 * @param	string	$name	Name
-	 * @param	mixed	$value
-	 * @return	void
+	 * @param string $name Name
+	 * @param mixed $value
+	 * @return void
 	 */
 	public function __set($name, $value)
 	{
