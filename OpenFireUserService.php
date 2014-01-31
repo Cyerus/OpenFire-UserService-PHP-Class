@@ -36,7 +36,7 @@ class OpenFireUserService
 {
 	/**
 	 * Stores all the default values.
-	 * @var	string	$settings
+	 * @var		string[]	$settings
 	 */
 	private $settings = array(
 		'host'			=> 'localhost',
@@ -55,7 +55,7 @@ class OpenFireUserService
 	 * Forward the POST request and analyze the result
 	 * 
 	 * @param	string[]	$parameters		Parameters
-	 * @return	array
+	 * @return	string[]|false
 	 */
 	private function doRequest($parameters = array())
 	{
@@ -77,14 +77,29 @@ class OpenFireUserService
 	/**
 	 * Analyze the result for errors, and reorder the result
 	 * 
-	 * @param	string[]	$result
-	 * @return	array
+	 * @param	string	$result
+	 * @return	string[]|false
 	 */
 	private function analyzeResult($result)
 	{
-		// TODO
-		
-		return $result;
+		if(preg_match('#^<error>[A-Za-z0-9 ]+</error>$#', $result, $matches))
+		{
+			return array(
+				'result'	=> false,
+				'message'	=> $matches[0]
+			);
+		}
+		elseif(preg_match('#^<result>[A-Za-z0-9 ]+</result>$#', $result, $matches))
+		{
+			return array(
+				'result'	=> true,
+				'message'	=> $matches[0]
+			);
+		}
+		else
+		{
+			return false;
+		}
 	}
 	
 	/**
@@ -92,7 +107,7 @@ class OpenFireUserService
 	 * 
 	 * @param	string		$url			URL
 	 * @param	string[]	$parameters		Parameters
-	 * @return	array
+	 * @return	string
 	 */
 	private function doRequestCurl($url, $parameters)
 	{
@@ -118,7 +133,7 @@ class OpenFireUserService
 	 * 
 	 * @param	string		$url			URL
 	 * @param	string[]	$parameters		Parameters
-	 * @return	array
+	 * @return	string
 	 */
 	private function doRequestFopen($url, $parameters)
 	{
@@ -139,7 +154,7 @@ class OpenFireUserService
 	 * @param	string|false	$name		Name	(Optional)
 	 * @param	string|false	$email		Email	(Optional)
 	 * @param	string[]|false	$groups		Groups	(Optional)
-	 * @return	array 
+	 * @return	string[]|false
 	 */
 	public function addUser($username, $password, $name = false, $email = false, $groups = false)
 	{
@@ -181,7 +196,7 @@ class OpenFireUserService
 	 * Deletes an OpenFire user
 	 * 
 	 * @param	string		$username	Username
-	 * @return	array
+	 * @return	string[]|false
 	 */
 	public function deleteUser($username)
 	{
@@ -196,7 +211,7 @@ class OpenFireUserService
 	 * Disables an OpenFire user
 	 * 
 	 * @param	string		$username	Username
-	 * @return	array
+	 * @return	string[]|false
 	 */
 	public function disableUser($username)
 	{
@@ -211,7 +226,7 @@ class OpenFireUserService
 	 * Enables an OpenFire user
 	 * 
 	 * @param	string		$username	Username
-	 * @return	array
+	 * @return	string[]|false
 	 */
 	public function enableUser($username)
 	{
@@ -230,7 +245,7 @@ class OpenFireUserService
 	 * @param	string|false	$name		Name (Optional)
 	 * @param	string|false	$email		Email (Optional)
 	 * @param	string[]|false	$groups		Groups (Optional)
-	 * @return	array 
+	 * @return	string[]|false
 	 */
 	public function updateUser($username, $password = false, $name = false, $email = false, $groups = false)
 	{
@@ -282,7 +297,7 @@ class OpenFireUserService
 	 * @param	string			$itemJid		Item JID
 	 * @param	string|false	$name			Name		 (Optional)
 	 * @param	int|false		$subscription	Subscription (Optional)
-	 * @return	array 
+	 * @return	string[]|false
 	 */
 	public function addToRoster($username, $itemJid, $name = false, $subscription = false)
 	{
@@ -319,7 +334,7 @@ class OpenFireUserService
 	 * @param	string			$itemJid		Item JID
 	 * @param	string|false	$name			Name		 (Optional)
 	 * @param	int|false		$subscription	Subscription (Optional)
-	 * @return	array 
+	 * @return	string[]|false 
 	 */
 	public function updateRoster($username, $itemJid, $name = false, $subscription = false)
 	{
@@ -354,7 +369,7 @@ class OpenFireUserService
 	 * 
 	 * @param	string	$username	Username
 	 * @param	string	$itemJid	Item JID
-	 * @return	array 
+	 * @return	string[]|false
 	 */
 	public function deleteFromRoster($username, $itemJid)
 	{
@@ -391,7 +406,7 @@ class OpenFireUserService
 	 * Grabs a configuration parameter
 	 * 
 	 * @param	string	$name	Name
-	 * @param	mixed	$value
+	 * @param	mixed	$value	Value
 	 * @return	void
 	 */
 	public function __set($name, $value)
