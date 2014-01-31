@@ -182,12 +182,12 @@ class OpenFireUserService
 	/*
 	 * Updates an OpenFire user
 	 * 
-	 * @param	string		$username	Username
-	 * @param	string		$password	Password	(Optional)
-	 * @param	string		$name		Name		(Optional)
-	 * @param	string		$email		Email		(Optional)
-	 * @param	array		$groups		Groups		(Optional)
-	 * @return	array 
+	 * @param string $username Username
+	 * @param string $password Password (Optional)
+	 * @param string $name Name (Optional)
+	 * @param string $email Email (Optional)
+	 * @param string[] $groups Groups (Optional)
+	 * @return array 
 	 */
 	public function updateUser($username, $password = false, $name = false, $email = false, $groups = false)
 	{
@@ -236,7 +236,7 @@ class OpenFireUserService
 	 * Adds to this OpenFire user's roster
 	 * 
 	 * @param	string		$username		Username
-	 * @param	string		$item_jid		Item JID
+	 * @param	string		$itemJid		Item JID
 	 * @param	string		$name			Name		 (Optional)
 	 * @param	int			$subscription	Subscription (Optional)
 	 * @return	array 
@@ -273,7 +273,7 @@ class OpenFireUserService
 	 * Updates this OpenFire user's roster
 	 * 
 	 * @param	string	$username		Username
-	 * @param	string	$item_jid		Item JID
+	 * @param	string	$itemJid		Item JID
 	 * @param	string	$name			Name		 (Optional)
 	 * @param	int		$subscription	Subscription (Optional)
 	 * @return	array 
@@ -310,7 +310,7 @@ class OpenFireUserService
 	 * Removes from this OpenFire user's roster
 	 * 
 	 * @param	string	$username		Username
-	 * @param	string	$item_jid		Item JID
+	 * @param	string	$itemJid		Item JID
 	 * @return	array 
 	 */
 	public function deleteFromRoster($username, $itemJid)
