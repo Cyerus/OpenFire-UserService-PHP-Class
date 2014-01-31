@@ -154,7 +154,7 @@ class OpenFireUserService
 	 * @param	string|false	$name		Name	(Optional)
 	 * @param	string|false	$email		Email	(Optional)
 	 * @param	string[]|false	$groups		Groups	(Optional)
-	 * @return	string[]|false
+	 * @return	array|false
 	 */
 	public function addUser($username, $password, $name = false, $email = false, $groups = false)
 	{
@@ -405,8 +405,8 @@ class OpenFireUserService
 	/**
 	 * Grabs a configuration parameter
 	 * 
-	 * @param	string	$name	Name
-	 * @param	mixed	$value	Value
+	 * @param	string				$name	Name
+	 * @param	string|array|bool	$value	Value
 	 * @return	void
 	 */
 	public function __set($name, $value)
