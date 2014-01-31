@@ -55,7 +55,7 @@ class OpenFireUserService
 	 * Forward the POST request and analyze the result
 	 * 
 	 * @param	string[]	$parameters		Parameters
-	 * @return	string[]|false
+	 * @return	false|string[]
 	 */
 	private function doRequest($parameters = array())
 	{
@@ -78,7 +78,7 @@ class OpenFireUserService
 	 * Analyze the result for errors, and reorder the result
 	 * 
 	 * @param	string	$result
-	 * @return	string[]|false
+	 * @return	false|string[]
 	 */
 	private function analyzeResult($result)
 	{
@@ -154,7 +154,7 @@ class OpenFireUserService
 	 * @param	string|false	$name		Name	(Optional)
 	 * @param	string|false	$email		Email	(Optional)
 	 * @param	string[]|false	$groups		Groups	(Optional)
-	 * @return	array|false
+	 * @return	false|string[]
 	 */
 	public function addUser($username, $password, $name = false, $email = false, $groups = false)
 	{
@@ -166,28 +166,13 @@ class OpenFireUserService
 		);
 		
 		// Name add request
-		if(is_string($name) && !empty($name))
-		{
-			$parameters = array_merge($parameters, array(
-				'name' => $name
-			));
-		}
+		$this->addParameter($parameters, 'name', $name);
 		
 		// Email add request
-		if(is_string($email) && !empty($email))
-		{
-			$parameters = array_merge($parameters, array(
-				'email' => $email
-			));
-		}
+		$this->addParameter($parameters, 'email', $email, 1);
 		
 		// Groups add request
-		if(is_array($groups) && !empty($groups))
-		{
-			$parameters = array_merge($parameters, array(
-				'groups' => implode(',', $groups)
-			));
-		}
+		$this->addParameter($parameters, 'groups', $groups, 3);
 		
 		return $this->doRequest($parameters);
 	}
@@ -196,7 +181,7 @@ class OpenFireUserService
 	 * Deletes an OpenFire user
 	 * 
 	 * @param	string		$username	Username
-	 * @return	string[]|false
+	 * @return	false|string[]
 	 */
 	public function deleteUser($username)
 	{
@@ -211,7 +196,7 @@ class OpenFireUserService
 	 * Disables an OpenFire user
 	 * 
 	 * @param	string		$username	Username
-	 * @return	string[]|false
+	 * @return	false|string[]
 	 */
 	public function disableUser($username)
 	{
@@ -245,7 +230,7 @@ class OpenFireUserService
 	 * @param	string|false	$name		Name (Optional)
 	 * @param	string|false	$email		Email (Optional)
 	 * @param	string[]|false	$groups		Groups (Optional)
-	 * @return	string[]|false
+	 * @return	false|string[]
 	 */
 	public function updateUser($username, $password = false, $name = false, $email = false, $groups = false)
 	{
@@ -256,36 +241,16 @@ class OpenFireUserService
 		);
 		
 		// Password change request
-		if(is_string($password) && !empty($password))
-		{
-			$parameters = array_merge($parameters, array(
-				'password' => $password
-			));
-		}
-		
+		$this->addParameter($parameters, 'password', $password);
+
 		// Name change request
-		if(is_string($name) && !empty($name))
-		{
-			$parameters = array_merge($parameters, array(
-				'name' => $name
-			));
-		}
+		$this->addParameter($parameters, 'name', $name);
 		
 		// Email change request
-		if(is_string($email) && !empty($email))
-		{
-			$parameters = array_merge($parameters, array(
-				'email' => $email
-			));
-		}
+		$this->addParameter($parameters, 'email', $email, 1);
 		
 		// Groups change request
-		if(is_array($groups) && !empty($groups))
-		{
-			$parameters = array_merge($parameters, array(
-				'groups' => implode(',', $groups)
-			));
-		}
+		$this->addParameter($parameters, 'email', $email, 3);
 		
 		return $this->doRequest($parameters);
 	}
@@ -297,7 +262,7 @@ class OpenFireUserService
 	 * @param	string			$itemJid		Item JID
 	 * @param	string|false	$name			Name		 (Optional)
 	 * @param	int|false		$subscription	Subscription (Optional)
-	 * @return	string[]|false
+	 * @return	false|string[]
 	 */
 	public function addToRoster($username, $itemJid, $name = false, $subscription = false)
 	{
@@ -308,21 +273,11 @@ class OpenFireUserService
 			'item_jid'		=> $itemJid
 		);
 		
-		// Name add request
-		if(is_string($name) && !empty($name))
-		{
-			$parameters = array_merge($parameters, array(
-				'name' => $name
-			));
-		}
+		// Name update request
+		$this->addParameter($parameters, 'name', $name);
 		
-		// Subscription add request
-		if($subscription !== false && in_array($subscription, $this->subscriptions))
-		{
-			$parameters = array_merge($parameters, array(
-				'subscription' => $subscription
-			));
-		}
+		// Subscription update request
+		$this->addParameter($parameters, 'subscription', $subscription, 2);
 		
 		return $this->doRequest($parameters);
 	}
@@ -334,7 +289,7 @@ class OpenFireUserService
 	 * @param	string			$itemJid		Item JID
 	 * @param	string|false	$name			Name		 (Optional)
 	 * @param	int|false		$subscription	Subscription (Optional)
-	 * @return	string[]|false 
+	 * @return	false|string[]
 	 */
 	public function updateRoster($username, $itemJid, $name = false, $subscription = false)
 	{
@@ -346,20 +301,10 @@ class OpenFireUserService
 		);
 		
 		// Name update request
-		if(is_string($name) && !empty($name))
-		{
-			$parameters = array_merge($parameters, array(
-				'name' => $name
-			));
-		}
+		$this->addParameter($parameters, 'name', $name);
 		
 		// Subscription update request
-		if($subscription !== false && in_array($subscription, $this->subscriptions))
-		{
-			$parameters = array_merge($parameters, array(
-				'subscription' => $subscription
-			));
-		}
+		$this->addParameter($parameters, 'subscription', $subscription, 2);
 		
 		return $this->doRequest($parameters);
 	}
@@ -382,6 +327,97 @@ class OpenFireUserService
 	}
 	
 	/**
+	 * Validates an Email address
+	 * 
+	 * @param	string	$email	Email
+	 * @return	bool
+	 */
+	private function validateEmail($email)
+	{
+		if(filter_var($email, FILTER_VALIDATE_EMAIL) !== false)
+		{
+			return true;
+		}
+		
+		return false;
+	}
+	
+	/**
+	 * Validates a string
+	 * 
+	 * @param	string	$string	String
+	 * @return	bool
+	 */
+	private function validateString($string)
+	{
+		if(!empty($string) && is_string($string))
+		{
+			return true;
+		}
+		
+		return false;
+	}
+	
+	/**
+	 * Validates a subscription
+	 * 
+	 * @param	int|false	$value	Value
+	 * @return	bool
+	 */
+	private function validateSubscription($subscription)
+	{
+		if($subscription !== false && in_array($subscription, $this->subscriptions))
+		{
+			return true;
+		}
+		
+		return false;
+	}
+	
+	/**
+	 * Validates groups
+	 * 
+	 * @param	int[]	$value	Value
+	 * @return	bool
+	 */
+	private function validateGroups($groups)
+	{
+		if(is_array($groups) && !empty($groups))
+		{
+			return true;
+		}
+		
+		return false;
+	}
+	
+	/**
+	 * Add a possible parameter
+	 * 
+	 * @param	string[]			$parameters		Parameters
+	 * @param	string				$paramName		Parameter name
+	 * @param	string|int|bool		$paramValue		Parameter value
+	 * @param	int					$paramType		Parameter type
+	 * @return	void
+	 */
+	private function addParameter(&$parameters, $paramName, $paramValue, $paramType = 0)
+	{
+		if	(($paramType == 0 && validateString($paramValue) && !empty($paramValue)) ||
+			( $paramType == 1 && validateEmail($paramValue) && !empty($paramValue)) ||
+			( $paramType == 2 && validateSubscription($paramValue)))
+		{
+			$parameters = array_merge($parameters, array(
+				$paramName => $paramValue
+			));
+		}
+		elseif($paramType == 3 && validateGroups($paramValue))
+		{
+			$parameters = array_merge($parameters, array(
+				$paramName => implode(',', $paramValue)
+			));
+		}
+	}
+	
+	/**
 	 * Simple construct (unused)
 	 */
 	public function __construct() {	}
@@ -390,7 +426,7 @@ class OpenFireUserService
 	 * Stores a configuration parameter
 	 * 
 	 * @param	string	$name	Name
-	 * @return	string|array|bool|int|null
+	 * @return	string|bool|int|null
 	 */
 	public function __get($name)
 	{
@@ -405,8 +441,8 @@ class OpenFireUserService
 	/**
 	 * Grabs a configuration parameter
 	 * 
-	 * @param	string					$name	Name
-	 * @param	string|array|bool|int	$value	Value
+	 * @param	string				$name	Name
+	 * @param	string|bool|int		$value	Value
 	 * @return	void
 	 */
 	public function __set($name, $value)
