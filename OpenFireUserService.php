@@ -54,8 +54,8 @@ class OpenFireUserService
 	/*
 	 * Sends the actual POST request to OpenFire's UserService
 	 * 
-	 * @param string[] $parameters
-	 * @return array
+	 * @param	string[]	$parameters		Parameters
+	 * @return	array
 	 */
 	private function doRequest($parameters = array())
 	{
@@ -91,12 +91,12 @@ class OpenFireUserService
 	/*
 	 * Creates a new OpenFire user
 	 * 
-	 * @param string $username
-	 * @param string $password
-	 * @param string $name Optional
-	 * @param string $email Optional
-	 * @param string[] $groups Optional
-	 * @return array 
+	 * @param	string		$username	Username
+	 * @param	string		$password	Password
+	 * @param	string		$name		Name	(Optional)
+	 * @param	string		$email		Email	(Optional)
+	 * @param	string[]	$groups		Groups	(Optional)
+	 * @return	array 
 	 */
 	public function addUser($username, $password, $name = false, $email = false, $groups = false)
 	{
@@ -137,8 +137,8 @@ class OpenFireUserService
 	/*
 	 * Deletes an OpenFire user
 	 * 
-	 * @param string $username
-	 * @return array
+	 * @param	string		$username	Username
+	 * @return	array
 	 */
 	public function deleteUser($username)
 	{
@@ -152,8 +152,8 @@ class OpenFireUserService
 	/*
 	 * Disables an OpenFire user
 	 * 
-	 * @param string $username
-	 * @return array
+	 * @param	string		$username	Username
+	 * @return	array
 	 */
 	public function disableUser($username)
 	{
@@ -167,8 +167,8 @@ class OpenFireUserService
 	/*
 	 * Enables an OpenFire user
 	 * 
-	 * @param string $username
-	 * @return array
+	 * @param	string		$username	Username
+	 * @return	array
 	 */
 	public function enableUser($username)
 	{
@@ -182,12 +182,12 @@ class OpenFireUserService
 	/*
 	 * Updates an OpenFire user
 	 * 
-	 * @param string $username
-	 * @param string $password Optional
-	 * @param string $name Optional
-	 * @param string $email Optional
-	 * @param string[] $groups Optional
-	 * @return array 
+	 * @param	string		$username	Username
+	 * @param	string		$password	Password	(Optional)
+	 * @param	string		$name		Name		(Optional)
+	 * @param	string		$email		Email		(Optional)
+	 * @param	string[]	$groups		Groups		(Optional)
+	 * @return	array 
 	 */
 	public function updateUser($username, $password = false, $name = false, $email = false, $groups = false)
 	{
@@ -235,11 +235,11 @@ class OpenFireUserService
 	/*
 	 * Adds to this OpenFire user's roster
 	 * 
-	 * @param string $username
-	 * @param string $item_jid
-	 * @param string $name Optional
-	 * @param int $subscription Optional
-	 * @return array 
+	 * @param	string		$username		Username
+	 * @param	string		$item_jid		Item JID
+	 * @param	string		$name			Name		 (Optional)
+	 * @param	int			$subscription	Subscription (Optional)
+	 * @return	array 
 	 */
 	public function addToRoster($username, $itemJid, $name = false, $subscription = false)
 	{
@@ -272,11 +272,11 @@ class OpenFireUserService
 	/*
 	 * Updates this OpenFire user's roster
 	 * 
-	 * @param string $username
-	 * @param string $item_jid
-	 * @param string $name Optional
-	 * @param int $subscription Optional
-	 * @return array 
+	 * @param	string	$username		Username
+	 * @param	string	$item_jid		Item JID
+	 * @param	string	$name			Name		 (Optional)
+	 * @param	int		$subscription	Subscription (Optional)
+	 * @return	array 
 	 */
 	public function updateRoster($username, $itemJid, $name = false, $subscription = false)
 	{
@@ -309,9 +309,9 @@ class OpenFireUserService
 	/*
 	 * Removes from this OpenFire user's roster
 	 * 
-	 * @param string $username
-	 * @param string $item_jid
-	 * @return array 
+	 * @param	string	$username		Username
+	 * @param	string	$item_jid		Item JID
+	 * @return	array 
 	 */
 	public function deleteFromRoster($username, $itemJid)
 	{
@@ -331,8 +331,8 @@ class OpenFireUserService
 	/*
 	 * Stores a configuration parameter
 	 * 
-	 * @param string $name
-	 * @return mixed
+	 * @param	string	$name	Name
+	 * @return	mixed
 	 */
 	public function __get($name)
 	{
@@ -347,8 +347,8 @@ class OpenFireUserService
 	/*
 	 * Grabs a configuration parameter
 	 * 
-	 * @param string $name
-	 * @param mixed $value
+	 * @param	string	$name	Name
+	 * @param	mixed	$value
 	 */
 	public function __set($name, $value)
 	{
