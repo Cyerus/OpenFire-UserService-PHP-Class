@@ -38,7 +38,7 @@ class OpenFireUserService
 	 * Stores all the default values.
 	 * @var string
 	 */
-	private $_settings = array(
+	private $settings = array(
 		'host'			=> 'localhost',
 		'port'			=> '9090',
 		'plugin'		=> '/plugins/userService/userservice',
@@ -54,7 +54,7 @@ class OpenFireUserService
 	/*
 	 * Sends the actual POST request to OpenFire's UserService
 	 * 
-	 * @param string|array $parameters
+	 * @param string[] $parameters
 	 * @return array
 	 */
 	private function doRequest($parameters = array())
@@ -95,10 +95,10 @@ class OpenFireUserService
 	 * @param string $password
 	 * @param string $name Optional
 	 * @param string $email Optional
-	 * @param array $groups Optional
+	 * @param string[] $groups Optional
 	 * @return array 
 	 */
-	public function add($username, $password, $name = false, $email = false, $groups = false)
+	public function addUser($username, $password, $name = false, $email = false, $groups = false)
 	{
 		$parameters = array(
 			'type'		=> 'add',
@@ -140,7 +140,7 @@ class OpenFireUserService
 	 * @param string $username
 	 * @return array
 	 */
-	public function delete($username)
+	public function deleteUser($username)
 	{
 		return $this->doRequest(array(
 			'type'		=> 'delete',
@@ -155,7 +155,7 @@ class OpenFireUserService
 	 * @param string $username
 	 * @return array
 	 */
-	public function disable($username)
+	public function disableUser($username)
 	{
 		return $this->doRequest(array(
 			'type'		=> 'disable',
@@ -170,7 +170,7 @@ class OpenFireUserService
 	 * @param string $username
 	 * @return array
 	 */
-	public function enable($username)
+	public function enableUser($username)
 	{
 		return $this->doRequest(array(
 			'type'		=> 'enable',
@@ -186,10 +186,10 @@ class OpenFireUserService
 	 * @param string $password Optional
 	 * @param string $name Optional
 	 * @param string $email Optional
-	 * @param array $groups Optional
+	 * @param string[] $groups Optional
 	 * @return array 
 	 */
-	public function update($username, $password = false, $name = false, $email = false, $groups = false)
+	public function updateUser($username, $password = false, $name = false, $email = false, $groups = false)
 	{
 		$parameters = array(
 			'type'		=> 'update',
@@ -241,13 +241,13 @@ class OpenFireUserService
 	 * @param int $subscription Optional
 	 * @return array 
 	 */
-	public function add_roster($username, $item_jid, $name = false, $subscription = false)
+	public function addToRoster($username, $itemJid, $name = false, $subscription = false)
 	{
 		$parameters = array(
 			'type'			=> 'add_roster',
 			'secret'		=> $this->secret,
 			'username'		=> $username,
-			'item_jid'		=> $item_jid
+			'item_jid'		=> $itemJid
 		);
 		
 		// Name add request
@@ -278,13 +278,13 @@ class OpenFireUserService
 	 * @param int $subscription Optional
 	 * @return array 
 	 */
-	public function update_roster($username, $item_jid, $name = false, $subscription = false)
+	public function updateRoster($username, $itemJid, $name = false, $subscription = false)
 	{
 		$parameters = array(
 			'type'			=> 'update_roster',
 			'secret'		=> $this->secret,
 			'username'		=> $username,
-			'item_jid'		=> $item_jid
+			'item_jid'		=> $itemJid
 		);
 		
 		// Name update request
@@ -313,13 +313,13 @@ class OpenFireUserService
 	 * @param string $item_jid
 	 * @return array 
 	 */
-	public function delete_roster($username, $item_jid)
+	public function deleteFromRoster($username, $itemJid)
 	{
 		return $this->doRequest(array(
 			'type'			=> 'delete_roster',
 			'secret'		=> $this->secret,
 			'username'		=> $username,
-			'item_jid'		=> $item_jid
+			'item_jid'		=> $itemJid
 		));
 	}
 	
@@ -336,9 +336,9 @@ class OpenFireUserService
 	 */
 	public function __get($name)
 	{
-		if (array_key_exists($name, $this->_settings))
+		if (array_key_exists($name, $this->settings))
 		{
-			return $this->_settings[$name];
+			return $this->settings[$name];
 		}
 		
 		return null;
@@ -352,6 +352,6 @@ class OpenFireUserService
 	 */
 	public function __set($name, $value)
 	{
-		$this->_settings[$name] = $value;
+		$this->settings[$name] = $value;
 	}
 }
