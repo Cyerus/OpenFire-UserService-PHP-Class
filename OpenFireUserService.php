@@ -158,13 +158,13 @@ class OpenFireUserService
         );
 
         // Name add request
-        $this->addParameter($parameters, 'name', $name);
+        $this->addString($parameters, 'name', $name);
 
         // Email add request
-        $this->addParameter($parameters, 'email', $email, 1);
+        $this->addEmail($parameters, $email);
 
         // Groups add request
-        $this->addParameter($parameters, 'groups', $groups, 3);
+        $this->addGroups($parameters, $groups);
 
         return $this->doRequest($parameters);
     }
@@ -233,16 +233,16 @@ class OpenFireUserService
         );
 
         // Password change request
-        $this->addParameter($parameters, 'password', $password);
+        $this->addString($parameters, 'password', $password);
 
         // Name change request
-        $this->addParameter($parameters, 'name', $name);
+        $this->addString($parameters, 'name', $name);
 
         // Email change request
-        $this->addParameter($parameters, 'email', $email, 1);
+        $this->addEmail($parameters, $email);
 
         // Groups change request
-        $this->addParameter($parameters, 'email', $email, 3);
+        $this->addString($parameters, $groups);
 
         return $this->doRequest($parameters);
     }
@@ -266,10 +266,10 @@ class OpenFireUserService
         );
 
         // Name update request
-        $this->addParameter($parameters, 'name', $name);
+        $this->addString($parameters, 'name', $name);
 
         // Subscription update request
-        $this->addParameter($parameters, 'subscription', $subscription, 2);
+        $this->addSubscription($parameters, $subscription);
 
         return $this->doRequest($parameters);
     }
@@ -293,10 +293,10 @@ class OpenFireUserService
         );
 
         // Name update request
-        $this->addParameter($parameters, 'name', $name);
+        $this->addString($parameters, 'name', $name);
 
         // Subscription update request
-        $this->addParameter($parameters, 'subscription', $subscription, 2);
+        $this->addSubscription($parameters, $subscription);
 
         return $this->doRequest($parameters);
     }
@@ -319,90 +319,77 @@ class OpenFireUserService
     }
 
     /**
-     * Validates an Email address
-     *
-     * @param	string	$email	Email
-     * @return	bool
-     */
-    private function isEmail($email)
-    {
-        if(filter_var($email, FILTER_VALIDATE_EMAIL) !== false) {
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * Validates a string
-     *
-     * @param	string	$string	String
-     * @return	bool
-     */
-    private function isString($string)
-    {
-        if(!empty($string) && is_string($string)) {
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * Validates a subscription
-     *
-     * @param	int|false	$subscription	Subscription
-     * @return	bool
-     */
-    private function isSubscription($subscription)
-    {
-        if($subscription !== false && in_array($subscription, $this->subscriptions)) {
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * Validates groups
-     *
-     * @param	int[]	$groups		Groups
-     * @return	bool
-     */
-    private function isGroups($groups)
-    {
-        if(is_array($groups) && !empty($groups)) {
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
      * Add a possible parameter
      *
      * @param	string[]					$parameters		Parameters
      * @param	string						$paramName		Parameter name
      * @param	string|int|bool|string[]	$paramValue		Parameter value
-     * @param	int							$paramType		Parameter type
      * @return	void
      */
-    private function addParameter(&$parameters, $paramName, $paramValue, $paramType = 0)
+    private function addParameter(&$parameters, $paramName, $paramValue)
     {
-        if	(($paramType == 0 && isString($paramValue) && !empty($paramValue)) ||
-            ( $paramType == 1 && isEmail($paramValue) && !empty($paramValue)) ||
-            ( $paramType == 2 && isSubscription($paramValue)))
-        {
-            $parameters = array_merge($parameters, array(
-                $paramName => $paramValue
-            ));
-        } elseif($paramType == 3 && isGroups($paramValue)) {
-            $parameters = array_merge($parameters, array(
-                $paramName => implode(',', $paramValue)
-            ));
-        }
+		$parameters = array_merge($parameters, array(
+			$paramName => $paramValue
+		));
+    }
+	
+    /**
+     * Add a possible string parameter
+     *
+     * @param	string[]	$parameters		Parameters
+     * @param	string		$paramName		Parameter name
+     * @param	string		$paramValue		Parameter value
+     * @return	void
+     */
+    private function addString(&$parameters, $paramName, $paramValue)
+    {
+		if(!empty($paramValue) && is_string($paramValue)) {
+			$this->addParameter($parameters, $paramName, $paramValue);
+		}
+    }
+	
+    /**
+     * Add a possible email parameter
+     *
+     * @param	string[]	$parameters		Parameters
+     * @param	string		$paramValue		Parameter value
+     * @return	void
+     */
+    private function addEmail(&$parameters, $paramValue)
+    {
+		if(filter_var($paramValue, FILTER_VALIDATE_EMAIL) !== false) {
+			$this->addParameter($parameters, 'email', $paramValue);
+		}
     }
 
+    /**
+     * Add a possible subscription parameter
+     *
+     * @param	string[]	$parameters		Parameters
+     * @param	string		$paramValue		Parameter value
+     * @return	void
+     */
+    private function addSubscription(&$parameters, $paramValue)
+    {
+		if($paramValue !== false && in_array($paramValue, $this->subscriptions)) {
+			$this->addParameter($parameters, 'subscription', $paramValue);
+		}
+    }
+	
+    /**
+     * Add a possible groups parameter
+     *
+     * @param	string[]	$parameters		Parameters
+     * @param	string		$paramValue		Parameter value
+     * @return	void
+     */
+    private function addGroups(&$parameters, $paramValue)
+    {
+		if(is_array($paramValue) && !empty($paramValue)) {
+			$this->addParameter($parameters, 'groups', implode(',', $paramValue));
+		}
+    }
+	
     /**
      * Simple construct (unused)
      */
