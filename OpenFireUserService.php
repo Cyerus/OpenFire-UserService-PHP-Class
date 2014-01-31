@@ -52,7 +52,7 @@ class OpenFireUserService
 	
 	
 	/*
-	 * Sends the actual POST request to OpenFire's UserService
+	 * Forward the POST request and analyze the result
 	 * 
 	 * @param	string[]	$parameters		Parameters
 	 * @return	array
@@ -64,26 +64,69 @@ class OpenFireUserService
 		
 		if($this->useCurl)
 		{
-			$ch = curl_init();
-			
-			curl_setopt($ch, CURLOPT_URL, $url . $this->plugin);
-			curl_setopt($ch, CURLOPT_PORT, $this->port);
-			curl_setopt($ch, CURLOPT_POST, 1);
-			curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($parameters));
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-			
-			$result = curl_exec ($ch);
-			
-			curl_close ($ch);
+			$result = $this->doRequestCurl($url, $parameters);
 		}
 		else
 		{
-			$fopen = fopen($url . ":" . $this->port . $this->plugin . "?" . http_build_query($parameters), 'r');
-			
-			$result = fread($fopen, 1024);
-			
-			fclose($fopen);
+			$result = $this->doRequestFopen($url, $parameters);
 		}
+		
+		return $this->analyzeResult($result);
+	}
+	
+	/*
+	 * Analyze the result for errors, and reorder the result
+	 * 
+	 * @param	string[]	$result
+	 * @return	array
+	 */
+	private function analyzeResult($result)
+	{
+		// TODO
+		
+		return $result;
+	}
+	
+	/*
+	 * Sends the actual POST request to OpenFire's UserService using cURL
+	 * 
+	 * @param	string		$url			URL
+	 * @param	string[]	$parameters		Parameters
+	 * @return	array
+	 */
+	private function doRequestCurl($url, $parameters)
+	{
+		$ch = curl_init();
+
+		curl_setopt_array($ch, array(
+			CURLOPT_URL				=> $url . $this->plugin,
+			CURLOPT_PORT			=> $this->port,
+			CURLOPT_POST			=> true,
+			CURLOPT_POSTFIELDS		=> http_build_query($parameters),
+			CURLOPT_RETURNTRANSFER	=> true
+		));
+
+		$result = curl_exec ($ch);
+
+		curl_close ($ch);
+		
+		return $result;
+	}
+	
+	/*
+	 * Sends the actual POST request to OpenFire's UserService using cURL
+	 * 
+	 * @param	string		$url			URL
+	 * @param	string[]	$parameters		Parameters
+	 * @return	array
+	 */
+	private function doRequestFopen($url, $parameters)
+	{
+		$fopen = fopen($url . ":" . $this->port . $this->plugin . "?" . http_build_query($parameters), 'r');
+
+		$result = fread($fopen, 1024);
+
+		fclose($fopen);
 		
 		return $result;
 	}
