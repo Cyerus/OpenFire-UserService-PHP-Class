@@ -242,7 +242,7 @@ class OpenFireUserService
         $this->addEmail($parameters, $email);
 
         // Groups change request
-        $this->addString($parameters, $groups);
+        $this->addGroups($parameters, $groups);
 
         return $this->doRequest($parameters);
     }
@@ -336,9 +336,9 @@ class OpenFireUserService
     /**
      * Add a possible string parameter
      *
-     * @param	string[]	$parameters		Parameters
-     * @param	string		$paramName		Parameter name
-     * @param	string		$paramValue		Parameter value
+     * @param	string[]		$parameters		Parameters
+     * @param	string			$paramName		Parameter name
+     * @param	string|false	$paramValue		Parameter value
      * @return	void
      */
     private function addString(&$parameters, $paramName, $paramValue)
@@ -351,8 +351,8 @@ class OpenFireUserService
     /**
      * Add a possible email parameter
      *
-     * @param	string[]	$parameters		Parameters
-     * @param	string		$paramValue		Parameter value
+     * @param	string[]		$parameters		Parameters
+     * @param	string|false	$paramValue		Parameter value
      * @return	void
      */
     private function addEmail(&$parameters, $paramValue)
@@ -366,7 +366,7 @@ class OpenFireUserService
      * Add a possible subscription parameter
      *
      * @param	string[]	$parameters		Parameters
-     * @param	string		$paramValue		Parameter value
+     * @param	int|false	$paramValue		Parameter value
      * @return	void
      */
     private function addSubscription(&$parameters, $paramValue)
@@ -379,8 +379,8 @@ class OpenFireUserService
     /**
      * Add a possible groups parameter
      *
-     * @param	string[]	$parameters		Parameters
-     * @param	string		$paramValue		Parameter value
+     * @param	string[]		$parameters		Parameters
+     * @param	string[]|false	$paramValue		Parameter value
      * @return	void
      */
     private function addGroups(&$parameters, $paramValue)
