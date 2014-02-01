@@ -35,7 +35,7 @@ $pofus = new OpenFireUserService();
 
 // Set the required config parameters
 $pofus->secret = "SuperSecret";
-$pofus->host = "http://jabber.yourserver.com";
+$pofus->host = "jabber.yourserver.com";
 $pofus->port = "9090";  // default 9090
 
 // Optional parameters (showing default values)
