@@ -36,7 +36,7 @@ class OpenFireUserService
 {
     /**
      * Stores all the default values.
-     * @var		(string|bool|int)[]|false	$settings
+     * @var		array	$settings
      */
     private $settings = array(
         'host'			=> 'localhost',
@@ -55,7 +55,7 @@ class OpenFireUserService
      * Forward the POST request and analyze the result
      *
      * @param	string[]		$parameters		Parameters
-     * @return	(string|bool)[]|false			Array with data or error, or False when something went fully wrong
+     * @return	array|false						Array with data or error, or False when something went fully wrong
      */
     private function doRequest($parameters = array())
     {
@@ -80,7 +80,7 @@ class OpenFireUserService
      * Analyze the result for errors, and reorder the result
      *
      * @param	string			$result		Result
-     * @return	(string|bool)[]|false				Array with data or error, or False when something went fully wrong
+     * @return	array|false					Array with data or error, or False when something went fully wrong
      */
     private function analyzeResult($result)
     {
@@ -154,12 +154,12 @@ class OpenFireUserService
     /**
      * Creates a new OpenFire user
      *
-     * @param	string					$username	Username
-     * @param	string					$password	Password
-     * @param	string|false			$name		Name	(Optional)
-     * @param	string|false			$email		Email	(Optional)
-     * @param	string[]|false			$groups		Groups	(Optional)
-     * @return	(string|bool)[]|false				Array with data or error, or False when something went fully wrong
+     * @param	string			$username	Username
+     * @param	string			$password	Password
+     * @param	string|false	$name		Name	(Optional)
+     * @param	string|false	$email		Email	(Optional)
+     * @param	string[]|false	$groups		Groups	(Optional)
+     * @return	array|false					Array with data or error, or False when something went fully wrong
      */
     public function addUser($username, $password, $name = false, $email = false, $groups = false)
     {
@@ -185,8 +185,8 @@ class OpenFireUserService
     /**
      * Deletes an OpenFire user
      *
-     * @param	string					$username	Username
-     * @return	(string|bool)[]|false				Array with data or error, or False when something went fully wrong
+     * @param	string			$username	Username
+     * @return	array|false					Array with data or error, or False when something went fully wrong
      */
     public function deleteUser($username)
     {
@@ -200,8 +200,8 @@ class OpenFireUserService
     /**
      * Disables an OpenFire user
      *
-     * @param	string					$username	Username
-     * @return	(string|bool)[]|false				Array with data or error, or False when something went fully wrong
+     * @param	string			$username	Username
+     * @return	array|false					Array with data or error, or False when something went fully wrong
      */
     public function disableUser($username)
     {
@@ -215,8 +215,8 @@ class OpenFireUserService
     /**
      * Enables an OpenFire user
      *
-     * @param	string					$username	Username
-     * @return	(string|bool)[]|false				Array with data or error, or False when something went fully wrong
+     * @param	string			$username	Username
+     * @return	array|false					Array with data or error, or False when something went fully wrong
      */
     public function enableUser($username)
     {
@@ -230,12 +230,12 @@ class OpenFireUserService
     /**
      * Updates an OpenFire user
      *
-     * @param	string					$username	Username
-     * @param	string|false			$password	Password (Optional)
-     * @param	string|false			$name		Name (Optional)
-     * @param	string|false			$email		Email (Optional)
-     * @param	string[]|false			$groups		Groups (Optional)
-     * @return	(string|bool)[]|false				Array with data or error, or False when something went fully wrong
+     * @param	string			$username	Username
+     * @param	string|false	$password	Password (Optional)
+     * @param	string|false	$name		Name (Optional)
+     * @param	string|false	$email		Email (Optional)
+     * @param	string[]|false	$groups		Groups (Optional)
+     * @return	array|false					Array with data or error, or False when something went fully wrong
      */
     public function updateUser($username, $password = false, $name = false, $email = false, $groups = false)
     {
@@ -263,11 +263,11 @@ class OpenFireUserService
     /**
      * Adds to this OpenFire user's roster
      *
-     * @param	string					$username		Username
-     * @param	string					$itemJid		Item JID
-     * @param	string|false			$name			Name		 (Optional)
-     * @param	int|false				$subscription	Subscription (Optional)
-     * @return	(string|bool)[]|false					Array with data or error, or False when something went fully wrong
+     * @param	string			$username		Username
+     * @param	string			$itemJid		Item JID
+     * @param	string|false	$name			Name		 (Optional)
+     * @param	int|false		$subscription	Subscription (Optional)
+     * @return	array|false						Array with data or error, or False when something went fully wrong
      */
     public function addToRoster($username, $itemJid, $name = false, $subscription = false)
     {
@@ -290,11 +290,11 @@ class OpenFireUserService
     /**
      * Updates this OpenFire user's roster
      *
-     * @param	string					$username		Username
-     * @param	string					$itemJid		Item JID
-     * @param	string|false			$name			Name		 (Optional)
-     * @param	int|false				$subscription	Subscription (Optional)
-     * @return	(string|bool)[]|false					Array with data or error, or False when something went fully wrong
+     * @param	string			$username		Username
+     * @param	string			$itemJid		Item JID
+     * @param	string|false	$name			Name		 (Optional)
+     * @param	int|false		$subscription	Subscription (Optional)
+     * @return	array|false						Array with data or error, or False when something went fully wrong
      */
     public function updateRoster($username, $itemJid, $name = false, $subscription = false)
     {
@@ -317,9 +317,9 @@ class OpenFireUserService
     /**
      * Removes from this OpenFire user's roster
      *
-     * @param	string					$username	Username
-     * @param	string					$itemJid	Item JID
-     * @return	(string|bool)[]|false				Array with data or error, or False when something went fully wrong
+     * @param	string			$username	Username
+     * @param	string			$itemJid	Item JID
+     * @return	array|false					Array with data or error, or False when something went fully wrong
      */
     public function deleteFromRoster($username, $itemJid)
     {
