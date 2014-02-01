@@ -42,8 +42,8 @@ $pofus->useCurl = true;
 $pofus->useSSL = false;
 $pofus->plugin = "/plugins/userService/userservice";  // plugin folder location
 
-// Add a new user to OpenFire and add him to a few groups
-$result = $pofus->addUser('Username', 'Password', 'Real Name', 'email@address.tld', array('Group 1', 'Group 2'));
+// Add a new user to OpenFire and add him to a group
+$result = $pofus->addUser('Username', 'Password', 'Real Name', 'email@email.tld', array('Group 1'));
 
 // Check result if command is succesful
 if($result) {
@@ -56,7 +56,8 @@ if($result) {
 ```
 
 ## Problems / Bugs
-If you find any problems with POFUS, please use githubs issue tracker at https://github.com/Cyerus/OpenFire-UserService-PHP-Class/issues
+If you find any problems with POFUS, please use githubs issue tracker at 
+https://github.com/Cyerus/OpenFire-UserService-PHP-Class/issues
 
 ## LINKS
 - [Github](https://github.com/Cyerus/OpenFire-UserService-PHP-Class/)
