@@ -1,6 +1,7 @@
 # PHP OpenFireUserService
+[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/Cyerus/OpenFire-UserService-PHP-Class/badges/quality-score.png?s=4b432225f3bcb77877b2c473d588808c7c30444f)](https://scrutinizer-ci.com/g/Cyerus/OpenFire-UserService-PHP-Class/)
 
-Copyright (C) 2014 by Cyerus, Jordy Wille
+Copyright (C) 2014 by Cyerus, Jordy Wille, 
 All rights reserved.
 
 Php OpenFire UserService, or POFUS, is a simple PHP class designed
