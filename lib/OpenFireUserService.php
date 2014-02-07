@@ -84,12 +84,12 @@ class OpenFireUserService
      */
     private function analyzeResult($result)
     {
-        if(preg_match('#^<error>[A-Za-z0-9 ]+</error>$#', $result, $matches)) {
+        if(preg_match('#^<error>[A-Za-z0-9 ]+</error>#', $result, $matches)) {
             return array(
                 'result'	=> false,
                 'message'	=> $matches[0]
             );
-        } elseif(preg_match('#^<result>[A-Za-z0-9 ]+</result>$#', $result, $matches)) {
+        } elseif(preg_match('#^<result>[A-Za-z0-9 ]+</result>#', $result, $matches)) {
             return array(
                 'result'	=> true,
                 'message'	=> $matches[0]
